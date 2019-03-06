@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="5dp"
-    android:layout_marginEnd="5dp">
+android:orientation="vertical"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:layout_marginStart="5dp"
+android:layout_marginEnd="5dp">
 
     <!--android:fontFamily="@font/avenir_medium" -->
     <android.support.v7.widget.AppCompatTextView
@@ -22,9 +22,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/formElementValue"
-        android:imeOptions="actionNext"
-        android:gravity="start"
-        android:inputType="textNoSuggestions"
-        android:textSize="15sp" />
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:inputType="none"
+        android:cursorVisible="false"
+        android:focusableInTouchMode="false"
+        android:textSize="15sp"
+        android:hint="@string/please_select"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical|start"
+        android:drawableEnd="@drawable/ic_arrow_drop_down_24dp"
+        android:drawableRight="@drawable/ic_arrow_drop_down_24dp" />
 
 </LinearLayout>

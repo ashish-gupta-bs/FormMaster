@@ -42,7 +42,7 @@ public class FormElementPickerMultiViewHolder extends BaseViewHolder {
 
         mTextViewTitle.setText(formElement.getTitle());
         mEditTextValue.setText(formElement.getValue());
-        mEditTextValue.setHint(formElement.getHint());
+        mEditTextValue.setHint(context.getResources().getString(R.string.please_select));
         mEditTextValue.setFocusableInTouchMode(false);
 
         // reformat the options in format needed

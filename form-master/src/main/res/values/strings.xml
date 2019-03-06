@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Form Master</string>
+    <string name="please_select">Select an option</string>
 </resources>
