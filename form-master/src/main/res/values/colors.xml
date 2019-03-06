@@ -6,4 +6,5 @@
     <color name="colorFormMasterElementTextTitle">#222222</color>
     <color name="colorFormMasterElementTextValue">#000000</color>
     <color name="colorFormMasterDivider">#DDDDDD</color>
+    <color name="color_gray">#64dad8d8</color>
 </resources>

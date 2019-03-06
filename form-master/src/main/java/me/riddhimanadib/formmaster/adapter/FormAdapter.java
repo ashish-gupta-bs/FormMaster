@@ -193,10 +193,10 @@ public class FormAdapter extends RecyclerView.Adapter<BaseViewHolder> implements
                 v = inflater.inflate(R.layout.form_element, parent, false);
                 return new FormElementPickerTimeViewHolder(v, mContext, this);
             case BaseFormElement.TYPE_PICKER_SINGLE:
-                v = inflater.inflate(R.layout.form_element, parent, false);
+                v = inflater.inflate(R.layout.form_element_select, parent, false);
                 return new FormElementPickerSingleViewHolder(v, mContext, this);
             case BaseFormElement.TYPE_PICKER_MULTI:
-                v = inflater.inflate(R.layout.form_element, parent, false);
+                v = inflater.inflate(R.layout.form_element_select, parent, false);
                 return new FormElementPickerMultiViewHolder(v, mContext, this);
             case BaseFormElement.TYPE_SWITCH:
                 v = inflater.inflate(R.layout.form_element_switch, parent, false);

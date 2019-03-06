@@ -1,10 +1,13 @@
 package me.riddhimanadib.formmaster.viewholder;
 
+import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.support.v7.app.AlertDialog;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatTextView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import me.riddhimanadib.formmaster.R;
@@ -23,6 +26,9 @@ public class FormElementPickerSingleViewHolder extends BaseViewHolder {
     private ReloadListener mReloadListener;
     private BaseFormElement mFormElement;
     private FormElementPickerSingle mFormElementPickerSingle;
+    private BottomSheetAdapter mSheetAdapter;
+    private BottomSheetDialog mBottomSheetDialog;
+    private LayoutInflater mLayoutInflater;
     private int mPosition;
 
     public FormElementPickerSingleViewHolder(View v, Context context, ReloadListener reloadListener) {
@@ -30,6 +36,7 @@ public class FormElementPickerSingleViewHolder extends BaseViewHolder {
         mTextViewTitle = (AppCompatTextView) v.findViewById(R.id.formElementTitle);
         mEditTextValue = (AppCompatEditText) v.findViewById(R.id.formElementValue);
         mReloadListener = reloadListener;
+        mLayoutInflater = ((Activity)context).getLayoutInflater();
     }
 
     @Override
@@ -37,10 +44,9 @@ public class FormElementPickerSingleViewHolder extends BaseViewHolder {
         mFormElement = formElement;
         mPosition = position;
         mFormElementPickerSingle = (FormElementPickerSingle) mFormElement;
-
         mTextViewTitle.setText(formElement.getTitle());
         mEditTextValue.setText(formElement.getValue());
-        mEditTextValue.setHint(formElement.getHint());
+        mEditTextValue.setHint(context.getResources().getString(R.string.please_select));
         mEditTextValue.setFocusableInTouchMode(false);
 
         // reformat the options in format needed
@@ -49,28 +55,42 @@ public class FormElementPickerSingleViewHolder extends BaseViewHolder {
             options[i] = mFormElementPickerSingle.getOptions().get(i);
         }
 
-        final AlertDialog dialog = new AlertDialog.Builder(context)
-            .setTitle(mFormElementPickerSingle.getPickerTitle())
-            .setItems(options, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    mEditTextValue.setText(options[which]);
-                    mFormElementPickerSingle.setValue(options[which].toString());
-                    mReloadListener.updateValue(position, options[which].toString());
-                }
-            })
-            .create();
+
+        mSheetAdapter = new BottomSheetAdapter(context, options);
+
+        View inflateView = mLayoutInflater.inflate(R.layout.list_options, null);
+        RecyclerView recyclerView = (RecyclerView) inflateView.findViewById(R.id.recycler_view);
+
+        recyclerView.getLayoutParams().height = RecyclerView.LayoutParams.WRAP_CONTENT;
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        recyclerView.setAdapter(mSheetAdapter);
+        mBottomSheetDialog = new BottomSheetDialog(context);
+        mBottomSheetDialog.setContentView(inflateView);
+
+        mSheetAdapter.setOnItemClickListener(new BottomSheetAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(CharSequence value, int position) {
+                mBottomSheetDialog.dismiss();
+                mEditTextValue.setText(value);
+                mFormElementPickerSingle.setValue(value.toString());
+                mReloadListener.updateValue(position, value.toString());
+            }
+        });
 
         mEditTextValue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.show();
+                //dialog.show();
+                mBottomSheetDialog.show();
             }
         });
 
         mTextViewTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.show();
+                //dialog.show();
+                mBottomSheetDialog.show();
             }
         });
     }
