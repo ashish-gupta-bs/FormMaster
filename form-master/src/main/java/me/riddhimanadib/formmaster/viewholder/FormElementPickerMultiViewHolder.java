@@ -68,56 +68,7 @@ public class FormElementPickerMultiViewHolder extends BaseViewHolder {
                 mSelectedItems.add(i);
             }
         }
-
-//        // prepare the dialog
-//        final AlertDialog dialog  = new AlertDialog.Builder(context)
-//                .setTitle(mFormElementPickerMulti.getPickerTitle())
-//                .setMultiChoiceItems(options, optionsSelected,
-//                        new DialogInterface.OnMultiChoiceClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-//                                if (isChecked) {
-//                                    // If the user checked the item, add it to the selected items
-//                                    mSelectedItems.add(which);
-//                                } else if (mSelectedItems.contains(which)) {
-//                                    // Else, if the item is already in the array, remove it
-//                                    mSelectedItems.remove(Integer.valueOf(which));
-//                                }
-//                            }
-//                        })
-//                // Set the action buttons
-//                .setPositiveButton(mFormElementPickerMulti.getPositiveText(), new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int id) {
-//                        String s = "";
-//                        for (int i = 0; i < mSelectedItems.size(); i++) {
-//                            s += options[mSelectedItems.get(i)];
-//
-//                            if (i < mSelectedItems.size() - 1) {
-//                                s += ", ";
-//                            }
-//                        }
-//                        mEditTextValue.setText(s);
-//                        mReloadListener.updateValue(position, s);
-//                    }
-//                })
-//                .setNegativeButton(mFormElementPickerMulti.getNegativeText(), null)
-//                .create();
-//
-//        mEditTextValue.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                dialog.show();
-//            }
-//        });
-//
-//        mTextViewTitle.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                dialog.show();
-//            }
-//        });
-
+        
         mSheetAdapter = new BottomSheetAdapter(context, options, optionsSelected);
 
         View inflateView = mLayoutInflater.inflate(R.layout.list_options, null);
@@ -135,9 +86,12 @@ public class FormElementPickerMultiViewHolder extends BaseViewHolder {
         mSheetAdapter.setOnItemClickListener(new BottomSheetAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(CharSequence value, int position) {
-                mBottomSheetDialog.dismiss();
-                mEditTextValue.setText(value);
-                mReloadListener.updateValue(position, value.toString());
+               if (mSelectedItems.contains(position)) {
+                    // Else, if the item is already in the array, remove it
+                    mSelectedItems.remove(Integer.valueOf(position));
+                }else{
+                    mSelectedItems.add(position);
+                }
             }
         });
 
@@ -154,6 +108,23 @@ public class FormElementPickerMultiViewHolder extends BaseViewHolder {
             public void onClick(View v) {
                 //dialog.show();
                 mBottomSheetDialog.show();
+            }
+        });
+
+        inflateView.findViewById(R.id.done_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String s = "";
+                for (int i = 0; i < mSelectedItems.size(); i++) {
+                    s += options[mSelectedItems.get(i)];
+
+                    if (i < mSelectedItems.size() - 1) {
+                        s += ", ";
+                    }
+                }
+                mBottomSheetDialog.dismiss();
+                mEditTextValue.setText(s);
+                mReloadListener.updateValue(position, s);
             }
         });
     }

@@ -80,6 +80,11 @@ public class BottomSheetAdapter extends RecyclerView.Adapter<BottomSheetAdapter.
             @Override
             public void onClick(View view) {
                 final OnItemClickListener listener = holder.adapter.getOnItemClickListener();
+                if (holder.checkBox.isChecked()) {
+                    holder.checkBox.setChecked(false);
+                }else{
+                    holder.checkBox.setChecked(true);
+                }
                 if (listener != null) {
                     listener.onItemClick(item, holder.getAdapterPosition());
                 }
