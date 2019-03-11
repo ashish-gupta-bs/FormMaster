@@ -1,10 +1,15 @@
 package me.riddhimanadib.formmaster.viewholder;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatTextView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -25,6 +30,9 @@ public class FormElementPickerMultiViewHolder extends BaseViewHolder {
     private ReloadListener mReloadListener;
     private BaseFormElement mFormElement;
     private FormElementPickerMulti mFormElementPickerMulti;
+    private BottomSheetAdapter mSheetAdapter;
+    private BottomSheetDialog mBottomSheetDialog;
+    private LayoutInflater mLayoutInflater;
     private int mPosition;
 
     public FormElementPickerMultiViewHolder(View v, Context context, ReloadListener reloadListener) {
@@ -32,6 +40,7 @@ public class FormElementPickerMultiViewHolder extends BaseViewHolder {
         mTextViewTitle = (AppCompatTextView) v.findViewById(R.id.formElementTitle);
         mEditTextValue = (AppCompatEditText) v.findViewById(R.id.formElementValue);
         mReloadListener = reloadListener;
+        mLayoutInflater = ((Activity)context).getLayoutInflater();
     }
 
     @Override
@@ -60,52 +69,91 @@ public class FormElementPickerMultiViewHolder extends BaseViewHolder {
             }
         }
 
-        // prepare the dialog
-        final AlertDialog dialog  = new AlertDialog.Builder(context)
-                .setTitle(mFormElementPickerMulti.getPickerTitle())
-                .setMultiChoiceItems(options, optionsSelected,
-                        new DialogInterface.OnMultiChoiceClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                                if (isChecked) {
-                                    // If the user checked the item, add it to the selected items
-                                    mSelectedItems.add(which);
-                                } else if (mSelectedItems.contains(which)) {
-                                    // Else, if the item is already in the array, remove it
-                                    mSelectedItems.remove(Integer.valueOf(which));
-                                }
-                            }
-                        })
-                // Set the action buttons
-                .setPositiveButton(mFormElementPickerMulti.getPositiveText(), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        String s = "";
-                        for (int i = 0; i < mSelectedItems.size(); i++) {
-                            s += options[mSelectedItems.get(i)];
+//        // prepare the dialog
+//        final AlertDialog dialog  = new AlertDialog.Builder(context)
+//                .setTitle(mFormElementPickerMulti.getPickerTitle())
+//                .setMultiChoiceItems(options, optionsSelected,
+//                        new DialogInterface.OnMultiChoiceClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+//                                if (isChecked) {
+//                                    // If the user checked the item, add it to the selected items
+//                                    mSelectedItems.add(which);
+//                                } else if (mSelectedItems.contains(which)) {
+//                                    // Else, if the item is already in the array, remove it
+//                                    mSelectedItems.remove(Integer.valueOf(which));
+//                                }
+//                            }
+//                        })
+//                // Set the action buttons
+//                .setPositiveButton(mFormElementPickerMulti.getPositiveText(), new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int id) {
+//                        String s = "";
+//                        for (int i = 0; i < mSelectedItems.size(); i++) {
+//                            s += options[mSelectedItems.get(i)];
+//
+//                            if (i < mSelectedItems.size() - 1) {
+//                                s += ", ";
+//                            }
+//                        }
+//                        mEditTextValue.setText(s);
+//                        mReloadListener.updateValue(position, s);
+//                    }
+//                })
+//                .setNegativeButton(mFormElementPickerMulti.getNegativeText(), null)
+//                .create();
+//
+//        mEditTextValue.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dialog.show();
+//            }
+//        });
+//
+//        mTextViewTitle.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dialog.show();
+//            }
+//        });
 
-                            if (i < mSelectedItems.size() - 1) {
-                                s += ", ";
-                            }
-                        }
-                        mEditTextValue.setText(s);
-                        mReloadListener.updateValue(position, s);
-                    }
-                })
-                .setNegativeButton(mFormElementPickerMulti.getNegativeText(), null)
-                .create();
+        mSheetAdapter = new BottomSheetAdapter(context, options, optionsSelected);
+
+        View inflateView = mLayoutInflater.inflate(R.layout.list_options, null);
+        RecyclerView recyclerView = (RecyclerView) inflateView.findViewById(R.id.recycler_view);
+
+        recyclerView.setPadding(0,0,0,70);
+        inflateView.findViewById(R.id.done_button).setVisibility(View.VISIBLE);
+        recyclerView.getLayoutParams().height = RecyclerView.LayoutParams.WRAP_CONTENT;
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        recyclerView.setAdapter(mSheetAdapter);
+        mBottomSheetDialog = new BottomSheetDialog(context);
+        mBottomSheetDialog.setContentView(inflateView);
+
+        mSheetAdapter.setOnItemClickListener(new BottomSheetAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(CharSequence value, int position) {
+                mBottomSheetDialog.dismiss();
+                mEditTextValue.setText(value);
+                mReloadListener.updateValue(position, value.toString());
+            }
+        });
 
         mEditTextValue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.show();
+                //dialog.show();
+                mBottomSheetDialog.show();
             }
         });
 
         mTextViewTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.show();
+                //dialog.show();
+                mBottomSheetDialog.show();
             }
         });
     }

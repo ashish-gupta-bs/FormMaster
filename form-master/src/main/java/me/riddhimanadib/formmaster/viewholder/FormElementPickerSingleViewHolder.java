@@ -61,6 +61,7 @@ public class FormElementPickerSingleViewHolder extends BaseViewHolder {
         View inflateView = mLayoutInflater.inflate(R.layout.list_options, null);
         RecyclerView recyclerView = (RecyclerView) inflateView.findViewById(R.id.recycler_view);
 
+        recyclerView.setPadding(0,0,0,0);
         recyclerView.getLayoutParams().height = RecyclerView.LayoutParams.WRAP_CONTENT;
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));

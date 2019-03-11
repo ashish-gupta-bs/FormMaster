@@ -1,6 +1,7 @@
 package me.riddhimanadib.formmaster.viewholder;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
@@ -15,13 +16,20 @@ import me.riddhimanadib.formmaster.R;
 public class BottomSheetAdapter extends RecyclerView.Adapter<BottomSheetAdapter.ItemHolder> {
 
     private Context mContext;
-    private CharSequence[] list;
+    private CharSequence[] mList;
     private String mDefaultValue;
     private OnItemClickListener onItemClickListener;
+    private boolean[] mSelectedOptions;
 
     public BottomSheetAdapter(Context context, CharSequence[] list) {
         this.mContext = context;
-        this.list = list;
+        this.mList = list;
+    }
+
+    public BottomSheetAdapter(Context context, CharSequence[] list, boolean[] selectedOptions) {
+        this.mContext = context;
+        this.mList = list;
+        this.mSelectedOptions = selectedOptions;
     }
 
     /**
@@ -59,8 +67,14 @@ public class BottomSheetAdapter extends RecyclerView.Adapter<BottomSheetAdapter.
     @Override
     public void onBindViewHolder(final BottomSheetAdapter.ItemHolder holder, int position) {
 
-        final CharSequence item = list[position];
+        final CharSequence item = mList[position];
         holder.tvMenuTitle.setText(item);
+
+        if (mSelectedOptions != null){
+            holder.checkBox.setVisibility(View.VISIBLE);
+        }else {
+            holder.checkBox.setVisibility(View.GONE);
+        }
 
         holder.mainView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +89,7 @@ public class BottomSheetAdapter extends RecyclerView.Adapter<BottomSheetAdapter.
 
     @Override
     public int getItemCount() {
-        return list.length;
+        return mList.length;
     }
 
 
@@ -85,6 +99,7 @@ public class BottomSheetAdapter extends RecyclerView.Adapter<BottomSheetAdapter.
     public static class ItemHolder extends RecyclerView.ViewHolder {
 
         AppCompatTextView tvMenuTitle;
+        AppCompatCheckBox checkBox;
         View mainView;
         private BottomSheetAdapter adapter;
 
@@ -93,7 +108,7 @@ public class BottomSheetAdapter extends RecyclerView.Adapter<BottomSheetAdapter.
             this.adapter = parent;
             mainView = itemView;
             tvMenuTitle = (AppCompatTextView) itemView.findViewById(R.id.tvMenuTitle);
-            tvMenuTitle.setGravity(Gravity.CENTER_VERTICAL);
+            checkBox = (AppCompatCheckBox) itemView.findViewById(R.id.tvCheckbox);
 
         }
     }
