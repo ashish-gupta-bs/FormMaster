@@ -2,6 +2,7 @@ package me.riddhimanadib.formmaster.viewholder;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Handler;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatTextView;
@@ -9,6 +10,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 
 import me.riddhimanadib.formmaster.R;
 import me.riddhimanadib.formmaster.listener.ReloadListener;
@@ -82,18 +85,19 @@ public class FormElementPickerSingleViewHolder extends BaseViewHolder {
         mEditTextValue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //dialog.show();
-                mBottomSheetDialog.show();
-            }
-        });
+                InputMethodManager imm = (InputMethodManager) v.getContext()
+                        .getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                v.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mBottomSheetDialog.show();
+                    }
+                },100);
 
-        mTextViewTitle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //dialog.show();
-                mBottomSheetDialog.show();
             }
         });
+        
     }
 
 }
