@@ -88,12 +88,12 @@ public class FormElementPickerMultiViewHolder extends BaseViewHolder {
 
         mSheetAdapter.setOnItemClickListener(new BottomSheetAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(CharSequence value, int position) {
-               if (mSelectedItems.contains(position)) {
+            public void onItemClick(CharSequence value, int itemPosition) {
+               if (mSelectedItems.contains(itemPosition)) {
                     // Else, if the item is already in the array, remove it
-                    mSelectedItems.remove(Integer.valueOf(position));
+                    mSelectedItems.remove(Integer.valueOf(itemPosition));
                 }else{
-                    mSelectedItems.add(position);
+                    mSelectedItems.add(itemPosition);
                 }
             }
         });
@@ -128,7 +128,7 @@ public class FormElementPickerMultiViewHolder extends BaseViewHolder {
                 }
                 mBottomSheetDialog.dismiss();
                 mEditTextValue.setText(s);
-                mReloadListener.updateValue(position, s);
+                mReloadListener.updateValue(mPosition, s);
             }
         });
     }

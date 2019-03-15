@@ -78,7 +78,7 @@ public class FormElementPickerSingleViewHolder extends BaseViewHolder {
                 mBottomSheetDialog.dismiss();
                 mEditTextValue.setText(value);
                 mFormElementPickerSingle.setValue(value.toString());
-                mReloadListener.updateValue(position, value.toString());
+                mReloadListener.updateValue(mPosition, value.toString());
             }
         });
 
@@ -97,7 +97,7 @@ public class FormElementPickerSingleViewHolder extends BaseViewHolder {
 
             }
         });
-        
+
     }
 
 }

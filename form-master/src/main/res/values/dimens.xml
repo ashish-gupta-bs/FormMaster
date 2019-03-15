@@ -3,4 +3,9 @@
     <dimen name="headerTextSize">15sp</dimen>
     <dimen name="elementTextTitleSize">14sp</dimen>
     <dimen name="elementTextValueSize">13sp</dimen>
+    <dimen name="dimen_18dp">21.60dp</dimen>
+    <dimen name="dimen_2dp">2.40dp</dimen>
+    <dimen name="dimen_3dp">3.60dp</dimen>
+    <dimen name="dimen_4dp">4.80dp</dimen>
+    <dimen name="dimen_5dp">6.00dp</dimen>
 </resources>
