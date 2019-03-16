@@ -12,6 +12,7 @@ import java.util.List;
 import me.riddhimanadib.formmaster.R;
 import me.riddhimanadib.formmaster.listener.FormItemEditTextListener;
 import me.riddhimanadib.formmaster.listener.OnFormElementValueChangedListener;
+import me.riddhimanadib.formmaster.listener.ReloadListener;
 import me.riddhimanadib.formmaster.model.BaseFormElement;
 import me.riddhimanadib.formmaster.viewholder.BaseViewHolder;
 import me.riddhimanadib.formmaster.viewholder.FormElementHeader;
@@ -26,7 +27,6 @@ import me.riddhimanadib.formmaster.viewholder.FormElementTextNumberViewHolder;
 import me.riddhimanadib.formmaster.viewholder.FormElementTextPasswordViewHolder;
 import me.riddhimanadib.formmaster.viewholder.FormElementTextPhoneViewHolder;
 import me.riddhimanadib.formmaster.viewholder.FormElementTextSingleLineViewHolder;
-import me.riddhimanadib.formmaster.listener.ReloadListener;
 
 /**
  * The adapter the holds and displays the form objects
@@ -172,7 +172,7 @@ public class FormAdapter extends RecyclerView.Adapter<BaseViewHolder> implements
                 v = inflater.inflate(R.layout.form_element, parent, false);
                 return new FormElementTextSingleLineViewHolder(v, new FormItemEditTextListener(this));
             case BaseFormElement.TYPE_EDITTEXT_TEXT_MULTILINE:
-                v = inflater.inflate(R.layout.form_element, parent, false);
+                v = inflater.inflate(R.layout.form_element_multi_line, parent, false);
                 return new FormElementTextMultiLineViewHolder(v, new FormItemEditTextListener(this));
             case BaseFormElement.TYPE_EDITTEXT_NUMBER:
                 v = inflater.inflate(R.layout.form_element, parent, false);

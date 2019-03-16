@@ -1,42 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:orientation="vertical">
 
     <!--android:fontFamily="@font/avenir_medium" -->
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/formElementTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:layout_marginTop="10dp"
         android:fontFamily="@font/avenir_book"
+        android:gravity="start"
         android:padding="5dp"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
         android:text="text"
-        android:textSize="@dimen/headerTextSize"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:gravity="start" />
+        android:textSize="@dimen/headerTextSize" />
 
     <android.support.v7.widget.AppCompatEditText
         android:id="@+id/formElementValue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:imeOptions="actionNext"
-
+        android:background="@drawable/bg_rectangle"
         android:fontFamily="@font/avenir_book"
-        android:paddingStart="16dp"
-        android:paddingTop="5dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="10dp"
+        android:gravity="start"
+        android:imeOptions="actionNext"
+        android:inputType="textNoSuggestions"
+        android:maxHeight="60dp"
+        android:minHeight="60dp"
+        android:paddingStart="5dp"
+        android:paddingTop="11dp"
+        android:paddingEnd="5dp"
+        android:paddingBottom="11dp"
+        android:scrollbars="vertical"
+
         android:text="text"
+
         android:textSize="@dimen/headerTextSize"
 
-        android:gravity="start"
-        android:inputType="textNoSuggestions" />
+        />
 
 </LinearLayout>

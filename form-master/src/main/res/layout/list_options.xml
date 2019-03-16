@@ -8,13 +8,16 @@
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/avenir_book"
         android:layout_gravity="top"
-        android:layout_marginBottom="20dp"/>
+        android:paddingBottom="20dp" />
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/done_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#40A4DC"
+        android:fontFamily="@font/avenir_book"
         android:layout_gravity="bottom|center_horizontal"
         android:visibility="gone"
         android:text="@string/done"/>
