@@ -73,7 +73,7 @@ public class FormElementPickerMultiViewHolder extends BaseViewHolder {
         View inflateView = mLayoutInflater.inflate(R.layout.list_options, null);
         RecyclerView recyclerView = (RecyclerView) inflateView.findViewById(R.id.recycler_view);
 
-        recyclerView.setPadding(0, 0, 0, 100);
+        recyclerView.setPadding(0, 0, 0, 80);
         inflateView.findViewById(R.id.done_button).setVisibility(View.VISIBLE);
         recyclerView.getLayoutParams().height = RecyclerView.LayoutParams.WRAP_CONTENT;
         recyclerView.setHasFixedSize(true);
