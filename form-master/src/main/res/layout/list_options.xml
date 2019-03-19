@@ -17,6 +17,7 @@
         android:layout_height="wrap_content"
         android:background="#40A4DC"
         android:textAllCaps="false"
+        android:textColor="#fff"
         android:fontFamily="@font/avenir_book"
         android:layout_gravity="bottom|center_horizontal"
         android:visibility="gone"
