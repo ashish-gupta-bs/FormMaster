@@ -2,17 +2,13 @@ package me.riddhimanadib.formmaster.viewholder;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.os.Handler;
 import android.support.design.widget.BottomSheetDialog;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
 import java.util.ArrayList;
@@ -77,7 +73,7 @@ public class FormElementPickerMultiViewHolder extends BaseViewHolder {
         View inflateView = mLayoutInflater.inflate(R.layout.list_options, null);
         RecyclerView recyclerView = (RecyclerView) inflateView.findViewById(R.id.recycler_view);
 
-        recyclerView.setPadding(0,0,0,70);
+        recyclerView.setPadding(0, 0, 0, 80);
         inflateView.findViewById(R.id.done_button).setVisibility(View.VISIBLE);
         recyclerView.getLayoutParams().height = RecyclerView.LayoutParams.WRAP_CONTENT;
         recyclerView.setHasFixedSize(true);

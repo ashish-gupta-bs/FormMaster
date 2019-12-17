@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorFormMasterHeaderBackground">#DDDDDD</color>
+    <color name="colorFormMasterHeaderBackground">#f2f2f2</color>
     <color name="colorFormMasterHeaderText">#000000</color>
     <color name="colorFormMasterElementBackground">#FFFFFF</color>
     <color name="colorFormMasterElementTextTitle">#222222</color>
