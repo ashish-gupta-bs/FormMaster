@@ -14,6 +14,7 @@ import me.riddhimanadib.formmaster.listener.FormItemEditTextListener;
 import me.riddhimanadib.formmaster.listener.OnFormElementValueChangedListener;
 import me.riddhimanadib.formmaster.model.BaseFormElement;
 import me.riddhimanadib.formmaster.viewholder.BaseViewHolder;
+import me.riddhimanadib.formmaster.viewholder.FormElementCustom;
 import me.riddhimanadib.formmaster.viewholder.FormElementHeader;
 import me.riddhimanadib.formmaster.viewholder.FormElementPickerDateViewHolder;
 import me.riddhimanadib.formmaster.viewholder.FormElementPickerMultiViewHolder;
@@ -168,6 +169,9 @@ public class FormAdapter extends RecyclerView.Adapter<BaseViewHolder> implements
             case BaseFormElement.TYPE_HEADER:
                 v = inflater.inflate(R.layout.form_element_header, parent, false);
                 return new FormElementHeader(v);
+            case BaseFormElement.TYPE_CUSTOM:
+                v = inflater.inflate(R.layout.form_element_custom, parent, false);
+                return new FormElementCustom(v);
             case BaseFormElement.TYPE_EDITTEXT_TEXT_SINGLELINE:
                 v = inflater.inflate(R.layout.form_element, parent, false);
                 return new FormElementTextSingleLineViewHolder(v, new FormItemEditTextListener(this));
