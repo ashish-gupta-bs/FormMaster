@@ -23,6 +23,9 @@ public class FormElementCustom extends BaseViewHolder {
     public void bind(int position, BaseFormElement formElement, final Context context) {
         mFormElement = formElement;
         mFormCustomView = (FormCustomView) mFormElement;
+        if(mFormCustomView.getCustomView().getParent() != null){
+            ((ViewGroup)mFormCustomView.getCustomView().getParent()).removeView(mFormCustomView.getCustomView());
+        }
         mLinearLayout.addView(mFormCustomView.getCustomView());
     }
 
